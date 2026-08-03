@@ -26,8 +26,12 @@ inspectable math:
    probability.
 
 Training data: the [AI vs Human Text](https://www.kaggle.com/datasets/shanegerami/ai-vs-human-text)
-corpus (~487k essays). Metrics on a held-out 10k-essay test split are in
-`backend/models/metadata.json`.
+corpus (~487k essays). On a held-out 10,000-essay test split the calibrated
+ensemble scores **99.7% accuracy (ROC-AUC 0.9999)**; the single
+interpretable tree scores 99.2%. Full metrics live in
+`backend/models/metadata.json`. These numbers are within-corpus; expect
+lower real-world accuracy on text styles the corpus does not cover, and
+treat every verdict as evidence, not proof.
 
 ## Running locally
 
