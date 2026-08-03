@@ -55,6 +55,41 @@ def load_dataset(csv: str | None) -> pd.DataFrame:
     return df
 
 
+def load_extra_datasets() -> dict[str, pd.DataFrame]:
+    """Newer, smaller corpora merged into training for model diversity.
+
+    Each is normalized to the same text/generated schema. Shorter texts
+    (down to 20 words) are kept: they cover social/news registers and
+    newer generators (GPT-4o, Gemini 2.0) absent from the main corpus.
+    """
+    import kagglehub
+
+    extras: dict[str, pd.DataFrame] = {}
+
+    root = kagglehub.dataset_download(
+        "alitaqishah/ai-vs-human-text-classification-dataset-2026"
+    )
+    d = pd.read_csv(Path(root) / "ai_vs_human_text_2026.csv")
+    d = pd.DataFrame(
+        {
+            "text": d["text_content"],
+            "generated": (d["label"] == "ai").astype(int),
+        }
+    )
+    extras["ai-vs-human-2026"] = d
+
+    root = kagglehub.dataset_download("navjotkaushal/human-vs-ai-generated-essays")
+    d = pd.read_csv(Path(root) / "balanced_ai_human_prompts.csv")
+    d = d[["text", "generated"]].copy()
+    d["generated"] = d["generated"].astype(int)
+    extras["human-vs-ai-essays"] = d
+
+    for name, d in extras.items():
+        d.dropna(subset=["text"], inplace=True)
+        extras[name] = d[d["text"].str.split().str.len() >= 20]
+    return extras
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--csv", default=None, help="CSV with text,generated columns")
@@ -71,6 +106,18 @@ def main() -> None:
     human = df[df.generated == 0]
     print(f"  {len(human):,} human / {len(ai):,} AI essays after filtering")
 
+    print("Loading extra datasets…")
+    extras = load_extra_datasets()
+    extra_train_parts, extra_tests = [], {}
+    for name, d in extras.items():
+        tr, te = train_test_split(
+            d, test_size=0.2, random_state=SEED, stratify=d["generated"]
+        )
+        extra_train_parts.append(tr)
+        extra_tests[name] = te
+        print(f"  {name}: {len(tr):,} train / {len(te):,} test")
+    extra_train = pd.concat(extra_train_parts)
+
     # -- Split off a held-out test set FIRST so nothing leaks ----------
     ai_train, ai_test = train_test_split(ai, test_size=5_000, random_state=SEED)
     hu_train, hu_test = train_test_split(human, test_size=5_000, random_state=SEED)
@@ -78,9 +125,13 @@ def main() -> None:
     # -- 1. Likelihood models ------------------------------------------
     print("Training n-gram likelihood models…")
     t0 = time.time()
+    extra_ai = extra_train[extra_train.generated == 1]["text"].tolist()
+    extra_hu = extra_train[extra_train.generated == 0]["text"].tolist()
     scorer = LikelihoodScorer.train(
-        ai_train.sample(min(args.lm_per_class, len(ai_train)), random_state=SEED)["text"].tolist(),
-        hu_train.sample(min(args.lm_per_class, len(hu_train)), random_state=SEED)["text"].tolist(),
+        ai_train.sample(min(args.lm_per_class, len(ai_train)), random_state=SEED)["text"].tolist()
+        + extra_ai,
+        hu_train.sample(min(args.lm_per_class, len(hu_train)), random_state=SEED)["text"].tolist()
+        + extra_hu,
     )
     print(f"  done in {time.time() - t0:.1f}s")
 
@@ -88,8 +139,9 @@ def main() -> None:
     n = args.per_class
     sample = pd.concat(
         [
-            ai_train.sample(min(n, len(ai_train)), random_state=SEED),
-            hu_train.sample(min(n, len(hu_train)), random_state=SEED),
+            ai_train.sample(min(n, len(ai_train)), random_state=SEED)[["text", "generated"]],
+            hu_train.sample(min(n, len(hu_train)), random_state=SEED)[["text", "generated"]],
+            extra_train[["text", "generated"]],
         ]
     ).sample(frac=1, random_state=SEED)
 
@@ -120,25 +172,28 @@ def main() -> None:
     model = CalibratedClassifierCV(gb, method="isotonic", cv=3)
     model.fit(X, y)
 
-    # -- 5. Evaluate on held-out test set ------------------------------
-    test = pd.concat([ai_test, hu_test]).sample(frac=1, random_state=SEED)
-    print(f"Evaluating on {len(test):,} held-out docs…")
-    Xt = np.array(
-        [extract_features(t) + [scorer.llr(t)] for t in test["text"]],
-        dtype=np.float64,
-    )
-    yt = test["generated"].to_numpy()
+    # -- 5. Evaluate on each held-out test set -------------------------
+    test_sets = {"main": pd.concat([ai_test, hu_test]).sample(frac=1, random_state=SEED)}
+    test_sets.update(extra_tests)
 
-    metrics = {}
-    for name, clf in [("decision_tree", tree), ("ensemble", model)]:
-        proba = clf.predict_proba(Xt)[:, 1]
-        pred = (proba >= 0.5).astype(int)
-        metrics[name] = {
-            "accuracy": round(float(accuracy_score(yt, pred)), 4),
-            "f1": round(float(f1_score(yt, pred)), 4),
-            "roc_auc": round(float(roc_auc_score(yt, proba)), 4),
-        }
-        print(f"  {name}: {metrics[name]}")
+    metrics: dict[str, dict] = {}
+    for ts_name, test in test_sets.items():
+        print(f"Evaluating on {ts_name} ({len(test):,} held-out docs)…")
+        Xt = np.array(
+            [extract_features(t) + [scorer.llr(t)] for t in test["text"]],
+            dtype=np.float64,
+        )
+        yt = test["generated"].to_numpy()
+        for name, clf in [("decision_tree", tree), ("ensemble", model)]:
+            proba = clf.predict_proba(Xt)[:, 1]
+            pred = (proba >= 0.5).astype(int)
+            key = name if ts_name == "main" else f"{name}_{ts_name}"
+            metrics[key] = {
+                "accuracy": round(float(accuracy_score(yt, pred)), 4),
+                "f1": round(float(f1_score(yt, pred)), 4),
+                "roc_auc": round(float(roc_auc_score(yt, proba)), 4),
+            }
+            print(f"  {key}: {metrics[key]}")
 
     # -- 6. Save artifacts ---------------------------------------------
     joblib.dump(tree, MODELS / "decision_tree.joblib")
