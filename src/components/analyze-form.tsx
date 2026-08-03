@@ -29,7 +29,7 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
     <div className="flex w-full flex-col gap-md">
       <div
         className={cn(
-          "rounded-lg border bg-surface transition-colors duration-150",
+          "rounded-lg border bg-surface transition-colors duration-150 focus-within:border-accent focus-within:ring-[3px] focus-within:ring-success-surface",
           dragging ? "border-accent bg-success-surface" : "border-border",
         )}
         onDragOver={(e) => {
@@ -46,7 +46,7 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
           id="essay"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Paste the text you want to examine. At least 40 words for a reliable reading."
+          placeholder="Paste the text you want to examine, at least 40 words…"
           rows={12}
           className="w-full resize-y rounded-lg bg-transparent p-lg text-body-md leading-relaxed text-primary placeholder:text-secondary focus:outline-none"
         />
@@ -61,7 +61,7 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
             <button
               type="button"
               onClick={() => fileInput.current?.click()}
-              className="rounded-md border border-border bg-surface px-md py-xs text-body-sm text-primary transition-colors duration-150 hover:bg-success-surface active:translate-y-px"
+              className="rounded-md border border-border bg-surface px-md py-xs text-body-sm text-primary transition-colors duration-150 hover:bg-success-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:translate-y-px"
             >
               Upload a document
             </button>

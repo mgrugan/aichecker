@@ -57,10 +57,16 @@ export default function App() {
         )}
 
         {phase === "analyzing" && (
-          <div className="flex flex-1 flex-col items-center justify-center gap-lg py-2xl">
-            <ThinkingOrb state="searching" size={64} />
+          <div
+            role="status"
+            aria-live="polite"
+            className="flex flex-1 flex-col items-center justify-center gap-lg py-2xl"
+          >
+            <div aria-hidden="true">
+              <ThinkingOrb state="searching" size={64} />
+            </div>
             <div className="flex flex-col items-center gap-2xs text-center">
-              <p className="text-body-lg text-primary">Reading the document</p>
+              <p className="text-body-lg text-primary">Reading the document…</p>
               <p className="text-body-sm text-secondary">
                 Measuring sentence rhythm, vocabulary, and phrase likelihood.
               </p>

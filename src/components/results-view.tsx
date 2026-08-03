@@ -46,7 +46,8 @@ export function ResultsView({
   const flagged = result.sentences.filter((s) => s.leaning === "ai").length;
 
   return (
-    <div className="flex w-full flex-col gap-lg animate-in fade-in duration-300">
+    <div className="flex w-full flex-col gap-lg animate-in fade-in duration-300 motion-reduce:animate-none">
+      <h1 className="sr-only">Analysis results</h1>
       <section className="rounded-lg border border-border bg-surface p-lg">
         <div className="flex flex-wrap items-start justify-between gap-lg">
           <div className="flex min-w-56 flex-1 flex-col gap-md">
@@ -127,7 +128,7 @@ export function ResultsView({
         <button
           type="button"
           onClick={onReset}
-          className="rounded-md border border-border bg-surface px-lg py-sm text-body-md text-primary transition-colors duration-150 hover:bg-success-surface active:translate-y-px"
+          className="rounded-md border border-border bg-surface px-lg py-sm text-body-md text-primary transition-colors duration-150 hover:bg-success-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:translate-y-px"
         >
           Analyze another document
         </button>
