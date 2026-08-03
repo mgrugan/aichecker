@@ -56,6 +56,21 @@ python3 backend/train.py                  # downloads the Kaggle dataset
 python3 backend/train.py --csv my.csv     # or any CSV with text,generated columns
 ```
 
+## Hosting
+
+The repo ships a multi-stage `Dockerfile` that builds the frontend and
+serves it and the API from one FastAPI process (static files mounted at
+`/`, API under `/api`). Any Docker host works:
+
+- **Render** (easiest): the included `render.yaml` blueprint defines the
+  service. In the Render dashboard choose New → Blueprint, pick this
+  repo, and deploy. Health checks hit `/api/health`.
+- **Railway / Fly.io / a VPS**: point them at the `Dockerfile`; the
+  server listens on `$PORT` (default 8000).
+
+GitHub Pages cannot host this app: Pages serves static files only and
+the detector needs the Python backend.
+
 ## Design system
 
 The UI is governed by [`DESIGN.md`](./DESIGN.md) (Google design.md token

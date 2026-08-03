@@ -35,10 +35,21 @@ def tokenize(text: str) -> list[str]:
 class NgramModel:
     """Add-k smoothed unigram + bigram model with interpolation."""
 
-    def __init__(self, vocab_size_cap: int = 60_000, k: float = 0.1, lam: float = 0.7):
+    def __init__(
+        self,
+        vocab_size_cap: int = 60_000,
+        k: float = 0.1,
+        lam: float = 0.7,
+        bigram_min_count: int = 3,
+    ):
         self.k = k
         self.lam = lam  # weight on bigram vs unigram
         self.cap = vocab_size_cap
+        # Bigrams rarer than this are dropped after fitting. Keeps the
+        # serialized model small enough for 512MB cloud instances; the
+        # classifier is trained on the pruned LLR so there is no
+        # train/serve skew.
+        self.bigram_min_count = bigram_min_count
         self.unigrams: Counter[str] = Counter()
         self.bigrams: Counter[tuple[str, str]] = Counter()
         self.total = 0
@@ -62,6 +73,10 @@ class NgramModel:
         self.bigrams = Counter()
         for (w1, w2), c in raw_bi.items():
             self.bigrams[(norm(w1), norm(w2))] += c
+        if self.bigram_min_count > 1:
+            self.bigrams = Counter(
+                {k_: v for k_, v in self.bigrams.items() if v >= self.bigram_min_count}
+            )
         self.total = sum(self.unigrams.values())
         return self
 

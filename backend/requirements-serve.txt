@@ -1,0 +1,9 @@
+# Runtime-only dependencies for serving the API (training extras excluded).
+fastapi>=0.115
+uvicorn[standard]>=0.30
+scikit-learn>=1.5
+numpy>=1.26
+joblib>=1.4
+python-multipart>=0.0.9
+pypdf>=5.0
+python-docx>=1.1

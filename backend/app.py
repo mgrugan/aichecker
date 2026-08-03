@@ -10,12 +10,14 @@ Run:  uvicorn app:app --port 8000   (from the backend/ directory)
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import joblib
 import numpy as np
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from extract import ExtractionError, extract_text
@@ -152,3 +154,11 @@ async def analyze_file(file: UploadFile = File(...)) -> dict:
     except ExtractionError as e:
         raise HTTPException(status_code=422, detail=str(e)) from e
     return _analyze(text, source=file.filename or "upload")
+
+
+# In production the built frontend (vite build → dist/) is served by this
+# same process. API routes above take precedence; everything else falls
+# through to the static site.
+_static = Path(os.environ.get("STATIC_DIR", HERE.parent / "dist"))
+if _static.is_dir():
+    app.mount("/", StaticFiles(directory=_static, html=True), name="static")
