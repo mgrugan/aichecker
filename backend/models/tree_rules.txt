@@ -1,82 +1,97 @@
-|--- llr <= -0.13
-|   |--- avg_word_len <= 5.41
-|   |   |--- llr <= -0.27
-|   |   |   |--- llr <= -0.35
-|   |   |   |   |--- comma_rate <= 0.09
-|   |   |   |   |   |--- avg_word_len <= 5.21
+|--- llr <= -0.07
+|   |--- llr <= -0.22
+|   |   |--- exclaim_rate <= 0.26
+|   |   |   |--- comma_rate <= 0.10
+|   |   |   |   |--- exclaim_rate <= 0.09
+|   |   |   |   |   |--- llr <= -0.36
 |   |   |   |   |   |   |--- class: 0
-|   |   |   |   |   |--- avg_word_len >  5.21
+|   |   |   |   |   |--- llr >  -0.36
 |   |   |   |   |   |   |--- class: 0
-|   |   |   |   |--- comma_rate >  0.09
-|   |   |   |   |   |--- short_sent_ratio <= 0.16
+|   |   |   |   |--- exclaim_rate >  0.09
+|   |   |   |   |   |--- avg_word_len <= 4.99
 |   |   |   |   |   |   |--- class: 0
-|   |   |   |   |   |--- short_sent_ratio >  0.16
-|   |   |   |   |   |   |--- class: 0
-|   |   |   |--- llr >  -0.35
-|   |   |   |   |--- flesch_reading_ease <= 75.99
-|   |   |   |   |   |--- type_token_ratio <= 0.54
-|   |   |   |   |   |   |--- class: 0
-|   |   |   |   |   |--- type_token_ratio >  0.54
-|   |   |   |   |   |   |--- class: 0
-|   |   |   |   |--- flesch_reading_ease >  75.99
-|   |   |   |   |   |--- class: 0
-|   |   |--- llr >  -0.27
-|   |   |   |--- flesch_reading_ease <= 77.49
-|   |   |   |   |--- exclaim_rate <= 0.04
-|   |   |   |   |   |--- flesch_reading_ease <= 66.52
-|   |   |   |   |   |   |--- class: 0
-|   |   |   |   |   |--- flesch_reading_ease >  66.52
-|   |   |   |   |   |   |--- class: 0
-|   |   |   |   |--- exclaim_rate >  0.04
-|   |   |   |   |   |--- class: 1
-|   |   |   |--- flesch_reading_ease >  77.49
-|   |   |   |   |--- class: 1
-|   |--- avg_word_len >  5.41
-|   |   |--- type_token_ratio <= 0.62
-|   |   |   |--- class: 1
-|   |   |--- type_token_ratio >  0.62
-|   |   |   |--- class: 1
-|--- llr >  -0.13
-|   |--- llr <= -0.02
-|   |   |--- n_words <= 428.50
-|   |   |   |--- long_sent_ratio <= 0.15
-|   |   |   |   |--- comma_rate <= 0.04
-|   |   |   |   |   |--- class: 1
-|   |   |   |   |--- comma_rate >  0.04
-|   |   |   |   |   |--- trigram_repeat_ratio <= 0.04
+|   |   |   |   |   |--- avg_word_len >  4.99
 |   |   |   |   |   |   |--- class: 1
-|   |   |   |   |   |--- trigram_repeat_ratio >  0.04
-|   |   |   |   |   |   |--- class: 1
-|   |   |   |--- long_sent_ratio >  0.15
+|   |   |   |--- comma_rate >  0.10
 |   |   |   |   |--- class: 0
-|   |   |--- n_words >  428.50
-|   |   |   |--- class: 0
-|   |--- llr >  -0.02
-|   |   |--- llr <= 0.07
-|   |   |   |--- avg_word_len <= 4.62
-|   |   |   |   |--- llr <= 0.01
+|   |   |--- exclaim_rate >  0.26
+|   |   |   |--- avg_word_len <= 4.80
+|   |   |   |   |--- avg_word_len <= 4.42
+|   |   |   |   |   |--- ai_marker_rate <= 1.75
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- ai_marker_rate >  1.75
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- avg_word_len >  4.42
+|   |   |   |   |   |--- class: 0
+|   |   |   |--- avg_word_len >  4.80
+|   |   |   |   |--- comma_rate <= 0.08
 |   |   |   |   |   |--- class: 1
-|   |   |   |   |--- llr >  0.01
-|   |   |   |   |   |--- stopword_ratio <= 0.48
-|   |   |   |   |   |   |--- class: 1
-|   |   |   |   |   |--- stopword_ratio >  0.48
-|   |   |   |   |   |   |--- class: 1
-|   |   |   |--- avg_word_len >  4.62
+|   |   |   |   |--- comma_rate >  0.08
+|   |   |   |   |   |--- class: 1
+|   |--- llr >  -0.22
+|   |   |--- flesch_reading_ease <= 75.28
+|   |   |   |--- n_words <= 288.50
+|   |   |   |   |--- sent_len_std <= 5.93
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- sent_len_std >  5.93
+|   |   |   |   |   |--- class: 0
+|   |   |   |--- n_words >  288.50
+|   |   |   |   |--- n_words <= 445.50
+|   |   |   |   |   |--- flesch_reading_ease <= 68.16
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- flesch_reading_ease >  68.16
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- n_words >  445.50
+|   |   |   |   |   |--- class: 0
+|   |   |--- flesch_reading_ease >  75.28
+|   |   |   |--- comma_rate <= 0.04
 |   |   |   |   |--- class: 1
-|   |   |--- llr >  0.07
-|   |   |   |--- llr <= 0.11
-|   |   |   |   |--- upper_rate <= 0.02
+|   |   |   |--- comma_rate >  0.04
+|   |   |   |   |--- hapax_ratio <= 0.26
 |   |   |   |   |   |--- class: 1
-|   |   |   |   |--- upper_rate >  0.02
+|   |   |   |   |--- hapax_ratio >  0.26
 |   |   |   |   |   |--- class: 1
-|   |   |   |--- llr >  0.11
-|   |   |   |   |--- llr <= 0.15
-|   |   |   |   |   |--- upper_rate <= 0.02
+|--- llr >  -0.07
+|   |--- llr <= 0.05
+|   |   |--- n_words <= 450.00
+|   |   |   |--- flesch_reading_ease <= 58.29
+|   |   |   |   |--- class: 0
+|   |   |   |--- flesch_reading_ease >  58.29
+|   |   |   |   |--- comma_rate <= 0.03
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- comma_rate >  0.03
+|   |   |   |   |   |--- long_sent_ratio <= 0.08
 |   |   |   |   |   |   |--- class: 1
-|   |   |   |   |   |--- upper_rate >  0.02
+|   |   |   |   |   |--- long_sent_ratio >  0.08
 |   |   |   |   |   |   |--- class: 1
-|   |   |   |   |--- llr >  0.15
-|   |   |   |   |   |--- n_sentences <= 39.50
+|   |   |--- n_words >  450.00
+|   |   |   |--- avg_sent_len <= 20.60
+|   |   |   |   |--- class: 0
+|   |   |   |--- avg_sent_len >  20.60
+|   |   |   |   |--- class: 0
+|   |--- llr >  0.05
+|   |   |--- llr <= 0.16
+|   |   |   |--- n_words <= 428.50
+|   |   |   |   |--- comma_rate <= 0.03
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- comma_rate >  0.03
+|   |   |   |   |   |--- sent_len_std <= 8.88
 |   |   |   |   |   |   |--- class: 1
-|   |   |   |   |   |--- n_sentences >  39.50
+|   |   |   |   |   |--- sent_len_std >  8.88
 |   |   |   |   |   |   |--- class: 1
+|   |   |   |--- n_words >  428.50
+|   |   |   |   |--- class: 0
+|   |   |--- llr >  0.16
+|   |   |   |--- n_words <= 840.50
+|   |   |   |   |--- n_sentences <= 38.50
+|   |   |   |   |   |--- avg_sent_len <= 35.91
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- avg_sent_len >  35.91
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- n_sentences >  38.50
+|   |   |   |   |   |--- avg_para_len <= 67.31
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- avg_para_len >  67.31
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |--- n_words >  840.50
+|   |   |   |   |--- class: 1
