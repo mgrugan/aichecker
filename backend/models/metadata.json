@@ -34,49 +34,69 @@
   ],
   "metrics": {
     "decision_tree": {
-      "accuracy": 0.992,
-      "f1": 0.992,
-      "roc_auc": 0.998
+      "accuracy": 0.9903,
+      "f1": 0.9903,
+      "roc_auc": 0.9982
     },
     "ensemble": {
-      "accuracy": 0.9969,
-      "f1": 0.9969,
+      "accuracy": 0.996,
+      "f1": 0.996,
       "roc_auc": 0.9999
+    },
+    "decision_tree_ai-vs-human-2026": {
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0
+    },
+    "ensemble_ai-vs-human-2026": {
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0
+    },
+    "decision_tree_human-vs-ai-essays": {
+      "accuracy": 0.9897,
+      "f1": 0.9143,
+      "roc_auc": 0.9979
+    },
+    "ensemble_human-vs-ai-essays": {
+      "accuracy": 0.9966,
+      "f1": 0.9714,
+      "roc_auc": 0.9998
     }
   },
-  "train_docs": 60000,
-  "test_docs": 10000,
+  "train_docs": 62765,
+  "test_docs": 292,
   "tree_feature_importances": {
-    "n_words": 0.0024,
+    "n_words": 0.0067,
     "n_sentences": 0.0,
-    "avg_word_len": 0.0069,
+    "avg_word_len": 0.0072,
     "avg_sent_len": 0.0,
-    "sent_len_std": 0.0,
+    "sent_len_std": 0.0006,
     "burstiness": 0.0,
-    "type_token_ratio": 0.0003,
+    "type_token_ratio": 0.0,
     "hapax_ratio": 0.0,
     "yule_k": 0.0,
     "shannon_entropy": 0.0,
     "stopword_ratio": 0.0,
-    "comma_rate": 0.0002,
+    "comma_rate": 0.0013,
     "semicolon_rate": 0.0,
     "colon_rate": 0.0,
     "dash_rate": 0.0,
-    "exclaim_rate": 0.0008,
+    "exclaim_rate": 0.0025,
     "question_rate": 0.0,
     "quote_rate": 0.0,
     "paren_rate": 0.0,
     "digit_rate": 0.0,
-    "upper_rate": 0.0001,
+    "upper_rate": 0.0,
     "bigram_repeat_ratio": 0.0,
     "trigram_repeat_ratio": 0.0,
-    "flesch_reading_ease": 0.0031,
+    "flesch_reading_ease": 0.0046,
     "ai_marker_rate": 0.0,
     "long_word_ratio": 0.0,
     "short_sent_ratio": 0.0,
-    "long_sent_ratio": 0.0006,
-    "avg_para_len": 0.0,
+    "long_sent_ratio": 0.0001,
+    "avg_para_len": 0.0001,
     "newline_rate": 0.0,
-    "llr": 0.9856
+    "llr": 0.9769
   }
 }

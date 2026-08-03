@@ -21,6 +21,8 @@ import re
 from collections import Counter
 from pathlib import Path
 
+import numpy as np
+
 _WORD_RE = re.compile(r"[a-zA-Z']+")
 _SENT_SPLIT = re.compile(r"(?<=[.!?])\s+")
 
@@ -80,14 +82,68 @@ class NgramModel:
         self.total = sum(self.unigrams.values())
         return self
 
+    def compact(self) -> "NgramModel":
+        """Convert dict counters to sorted numpy arrays.
+
+        Counts are preserved exactly, so probabilities are bit-identical;
+        this only trades Python dict overhead (hundreds of MB) for packed
+        arrays (a few MB) so the model fits small cloud instances.
+        """
+        if getattr(self, "bi_keys", None) is not None:
+            return self
+        words = sorted(self.vocab | {BOS, UNK})
+        self.word_id = {w: i for i, w in enumerate(words)}
+        uni = np.zeros(len(words), dtype=np.int64)
+        for w, c in self.unigrams.items():
+            uni[self.word_id[w]] = c
+        self.uni_arr = uni
+        self.n_bigrams = len(self.bigrams)
+        keys = np.empty(self.n_bigrams, dtype=np.uint64)
+        vals = np.empty(self.n_bigrams, dtype=np.int64)
+        for i, ((w1, w2), c) in enumerate(self.bigrams.items()):
+            keys[i] = (np.uint64(self.word_id[w1]) << np.uint64(32)) | np.uint64(
+                self.word_id[w2]
+            )
+            vals[i] = c
+        order = np.argsort(keys)
+        self.bi_keys = keys[order]
+        self.bi_vals = vals[order]
+        self.unigrams = None
+        self.bigrams = None
+        return self
+
+    def _uni_count(self, w: str) -> int:
+        if getattr(self, "bi_keys", None) is not None:
+            return int(self.uni_arr[self.word_id.get(w, self.word_id[UNK])])
+        return self.unigrams.get(w, 0)
+
+    def _bi_count(self, w1: str, w2: str) -> int:
+        if getattr(self, "bi_keys", None) is not None:
+            i1 = self.word_id.get(w1)
+            i2 = self.word_id.get(w2)
+            if i1 is None or i2 is None:
+                return 0
+            key = (np.uint64(i1) << np.uint64(32)) | np.uint64(i2)
+            i = int(np.searchsorted(self.bi_keys, key))
+            if i < len(self.bi_keys) and self.bi_keys[i] == key:
+                return int(self.bi_vals[i])
+            return 0
+        return self.bigrams.get((w1, w2), 0)
+
+    @property
+    def _n_bigrams(self) -> int:
+        if getattr(self, "bi_keys", None) is not None:
+            return self.n_bigrams
+        return len(self.bigrams)
+
     def _p_uni(self, w: str) -> float:
         v = len(self.vocab) + 1
-        return (self.unigrams.get(w, 0) + self.k) / (self.total + self.k * v)
+        return (self._uni_count(w) + self.k) / (self.total + self.k * v)
 
     def _p_bi(self, w1: str, w2: str) -> float:
         v = len(self.vocab) + 1
-        c1 = self.unigrams.get(w1, 0) if w1 != BOS else self.total // max(1, len(self.bigrams))
-        return (self.bigrams.get((w1, w2), 0) + self.k) / (c1 + self.k * v)
+        c1 = self._uni_count(w1) if w1 != BOS else self.total // max(1, self._n_bigrams)
+        return (self._bi_count(w1, w2) + self.k) / (c1 + self.k * v)
 
     def logprob_per_token(self, text: str) -> float:
         toks = tokenize(text)

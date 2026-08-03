@@ -198,6 +198,8 @@ def main() -> None:
     # -- 6. Save artifacts ---------------------------------------------
     joblib.dump(tree, MODELS / "decision_tree.joblib")
     joblib.dump(model, MODELS / "ensemble.joblib")
+    scorer.ai.compact()
+    scorer.human.compact()
     scorer.save(MODELS / "likelihood.pkl")
     fi = getattr(tree, "feature_importances_", np.zeros(len(feature_names)))
     (MODELS / "metadata.json").write_text(
