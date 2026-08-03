@@ -26,11 +26,11 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
   };
 
   return (
-    <div className="flex w-full flex-col gap-md">
+    <div className="flex min-h-0 flex-1 flex-col gap-sm">
       <div
         className={cn(
-          "rounded-lg border bg-surface transition-colors duration-150 focus-within:border-accent focus-within:ring-[3px] focus-within:ring-success-surface",
-          dragging ? "border-accent bg-success-surface" : "border-border",
+          "flex min-h-0 flex-1 flex-col rounded-lg border bg-surface transition-colors duration-150 focus-within:border-accent/50 focus-within:ring-[3px] focus-within:ring-accent/10",
+          dragging ? "border-accent/70 bg-border/30" : "border-border",
         )}
         onDragOver={(e) => {
           e.preventDefault();
@@ -47,10 +47,9 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste the text you want to examine, at least 40 words…"
-          rows={12}
-          className="w-full resize-y rounded-lg bg-transparent p-lg text-body-md leading-relaxed text-primary placeholder:text-secondary focus:outline-none"
+          className="min-h-0 w-full flex-1 resize-none rounded-lg bg-transparent p-md text-body-md leading-relaxed text-primary placeholder:text-secondary focus:outline-none"
         />
-        <div className="flex flex-wrap items-center justify-between gap-md border-t border-border px-lg py-sm">
+        <div className="flex shrink-0 flex-wrap items-center justify-between gap-sm border-t border-border px-md py-xs">
           <p className="font-mono text-data-md text-secondary">
             {words.toLocaleString()} {words === 1 ? "word" : "words"}
             {words > 0 && !ready && (
@@ -61,7 +60,7 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
             <button
               type="button"
               onClick={() => fileInput.current?.click()}
-              className="rounded-md border border-border bg-surface px-md py-xs text-body-sm text-primary transition-colors duration-150 hover:bg-success-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:translate-y-px"
+              className="rounded-full border border-border bg-surface px-md py-xs text-body-sm text-primary transition-colors duration-150 hover:bg-border/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:translate-y-px"
             >
               Upload a document
             </button>
@@ -84,19 +83,17 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
         </div>
       </div>
 
-      <p className="text-caption text-secondary">
-        Accepts pasted text or .txt, .md, .docx, and .pdf files. Drag a file
-        anywhere onto the panel.
-      </p>
-
-      {error && (
-        <div
-          role="alert"
-          className="rounded-md bg-danger-surface px-md py-sm text-body-sm text-danger"
-        >
-          {error}
-        </div>
-      )}
+      <div className="flex shrink-0 items-center justify-between gap-md">
+        <p className="text-caption text-secondary">
+          Accepts pasted text or .txt, .md, .docx, and .pdf files. Drag a file
+          anywhere onto the panel.
+        </p>
+        {error && (
+          <p role="alert" className="rounded-md bg-danger-surface px-sm py-2xs text-body-sm text-danger">
+            {error}
+          </p>
+        )}
+      </div>
     </div>
   );
 }

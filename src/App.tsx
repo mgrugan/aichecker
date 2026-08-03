@@ -25,9 +25,9 @@ export default function App() {
   };
 
   return (
-    <div className="flex min-h-[100dvh] flex-col">
-      <header className="border-b border-border bg-surface">
-        <div className="mx-auto flex h-16 w-full max-w-content-max items-center justify-between px-margin">
+    <div className="flex h-dvh flex-col overflow-hidden">
+      <header className="shrink-0 border-b border-border">
+        <div className="mx-auto flex h-14 w-full max-w-content-max items-center justify-between px-lg">
           <p className="font-serif text-h3 font-medium text-primary">AI Checker</p>
           <p className="font-mono text-label-caps uppercase tracking-label-caps text-secondary">
             Writing provenance analysis
@@ -35,16 +35,16 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-content-max flex-1 flex-col px-margin py-xl">
+      <main className="mx-auto flex w-full max-w-content-max flex-1 flex-col overflow-hidden px-lg py-md">
         {phase === "idle" && (
-          <div className="flex flex-col gap-xl">
-            <div className="flex max-w-reading-max flex-col gap-sm pt-lg">
-              <h1 className="font-serif text-h1 leading-tight tracking-h1 text-primary">
+          <div className="flex h-full min-h-0 flex-col gap-md">
+            <div className="shrink-0 pt-xs">
+              <h1 className="font-serif text-h2 leading-tight tracking-h1 text-primary">
                 Was this written by a person?
               </h1>
-              <p className="text-body-lg leading-relaxed text-secondary">
+              <p className="mt-2xs max-w-reading-max text-body-md leading-normal text-secondary">
                 Paste text or upload a document. A statistical model trained on
-                487,000 essays reads its rhythm, vocabulary, and phrasing, then
+                490,000 essays reads its rhythm, vocabulary, and phrasing, then
                 reports the evidence.
               </p>
             </div>
@@ -60,7 +60,7 @@ export default function App() {
           <div
             role="status"
             aria-live="polite"
-            className="flex flex-1 flex-col items-center justify-center gap-lg py-2xl"
+            className="flex h-full flex-col items-center justify-center gap-lg"
           >
             <div aria-hidden="true">
               <ThinkingOrb state="searching" size={64} />
@@ -85,11 +85,11 @@ export default function App() {
         )}
       </main>
 
-      <footer className="border-t border-border">
-        <div className="mx-auto flex w-full max-w-content-max flex-wrap items-center justify-between gap-md px-margin py-lg">
-          <p className="text-caption text-secondary">
+      <footer className="shrink-0 border-t border-border">
+        <div className="mx-auto flex h-10 w-full max-w-content-max items-center justify-between gap-md px-lg">
+          <p className="truncate text-caption text-secondary">
             Decision-tree ensemble over 30 stylometric measurements and n-gram
-            likelihood ratios. Trained on the AI vs Human Text corpus.
+            likelihood ratios.
           </p>
           <p className="font-mono text-caption text-secondary">AI Checker</p>
         </div>

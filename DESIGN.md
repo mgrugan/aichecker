@@ -4,21 +4,22 @@ name: AI Checker
 description: >
   Design system for AI Checker — a tool that analyzes text and tells you,
   with evidence, how likely it is to be AI-generated. The visual language is
-  editorial and forensic: warm paper surfaces, deep spruce ink, and a single
-  emerald accent, with monospaced type reserved for scores and data.
+  cold luxury built around the liquid-metal primary button: graphite-black
+  surfaces, chrome-silver ink, smoke greys, and monospaced type reserved
+  for scores and data. Dark theme only; every view fits one screen.
 colors:
-  primary: "#173F35"
-  secondary: "#5C6B66"
-  accent: "#1E7A5F"
-  neutral: "#F8F6F1"
-  surface: "#FFFFFF"
-  border: "#DDD8CC"
-  success: "#1E7A5F"
-  warning: "#7A5600"
-  danger: "#B93815"
-  danger-surface: "#FBEDE7"
-  success-surface: "#E8F3EE"
-  warning-surface: "#F9F1DF"
+  primary: "#E9EAEC"
+  secondary: "#9BA0A8"
+  accent: "#D3D6DB"
+  neutral: "#101114"
+  surface: "#17181B"
+  border: "#2A2D31"
+  success: "#34D399"
+  warning: "#E2B93B"
+  danger: "#F87171"
+  danger-surface: "#321616"
+  success-surface: "#0E2A1E"
+  warning-surface: "#2C2410"
 typography:
   display-lg:
     fontFamily: Newsreader
@@ -101,22 +102,22 @@ components:
     backgroundColor: "{colors.neutral}"
     textColor: "{colors.primary}"
   button-primary:
-    backgroundColor: "{colors.accent}"
-    textColor: "{colors.surface}"
+    backgroundColor: "#141517"
+    textColor: "#B9BDC4"
     typography: "{typography.body-md}"
-    rounded: "{rounded.md}"
+    rounded: "{rounded.full}"
     padding: "12px 24px"
   button-primary-hover:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.surface}"
+    backgroundColor: "#1B1C1F"
+    textColor: "{colors.primary}"
   button-secondary:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.primary}"
     typography: "{typography.body-md}"
-    rounded: "{rounded.md}"
+    rounded: "{rounded.full}"
     padding: "12px 24px"
   button-secondary-hover:
-    backgroundColor: "{colors.success-surface}"
+    backgroundColor: "#1F2125"
     textColor: "{colors.primary}"
   input:
     backgroundColor: "{colors.surface}"
@@ -124,6 +125,8 @@ components:
     typography: "{typography.body-md}"
     rounded: "{rounded.md}"
     padding: "{spacing.md}"
+  input-focus:
+    textColor: "{colors.accent}"
   card:
     backgroundColor: "{colors.surface}"
     rounded: "{rounded.lg}"
@@ -161,41 +164,44 @@ product, so the interface must feel like a well-edited publication crossed
 with a forensic lab: calm, literate, and precise — never gimmicky, never
 "AI-themed."
 
-The personality is **editorial trust**. Warm paper backgrounds and a deep
-spruce ink evoke print journalism; monospaced figures and quiet emerald
-accents evoke instrumentation. The UI should feel spacious and unhurried,
-with generous margins and a clear reading column. Nothing in the interface
-should look machine-generated: no purple gradients, no glassmorphism, no
-sparkle iconography, no robot mascots.
+The personality is **cold luxury**: the interface is built outward from
+its primary button, a liquid-metal pill of black gradient and chrome
+shader. Graphite-black surfaces, silver ink, and smoke greys read as
+precision instrumentation; monospaced figures carry the machine's
+measurements. The UI is compact and unhurried at once: every view fits a
+single desktop screen with no page scrolling, and long content scrolls
+inside its panel. Nothing in the interface should look machine-generated:
+no purple gradients, no neon glows, no sparkle iconography.
 
 The emotional target: a user pastes in a suspect essay and feels they have
-handed it to a meticulous, impartial examiner.
+handed it to a meticulous, impartial examiner working at a black-steel
+bench.
 
 ## Colors
 
-The palette is rooted in warm paper neutrals and deep botanical inks, with
-one emerald accent and a small set of verdict colors that carry semantic
-meaning.
+The palette is a monochrome metal scale matched to the liquid-metal
+button, with a small set of verdict colors that carry semantic meaning.
 
-- **Primary — Spruce Ink (#173F35):** A near-black green used for headlines
-  and core text. It reads as black at body sizes but reveals warmth in
-  display sizes, giving the brand its signature tone.
-- **Secondary — Sage Slate (#5C6B66):** A muted grey-green for captions,
-  metadata, placeholder text, and secondary icons.
-- **Accent — Verdigris (#1E7A5F):** The sole interactive color. Reserved for
-  primary buttons, links, focus rings, and active states. If everything is
-  emerald, nothing is — use it sparingly.
-- **Neutral — Warm Paper (#F8F6F1):** The page background. Pure white
-  (#FFFFFF) is reserved for cards and input surfaces so content sits on a
-  subtly elevated layer.
+- **Primary — Chrome Ink (#E9EAEC):** Silver-white used for headlines and
+  core text, echoing the button's chrome shader.
+- **Secondary — Smoke (#9BA0A8):** Muted grey for captions, metadata,
+  placeholder text, and secondary icons.
+- **Accent — Polished Chrome (#D3D6DB):** Reserved for focus rings, links,
+  and active states. Interaction itself belongs to the liquid-metal
+  button; the accent stays quiet.
+- **Neutral — Graphite (#101114):** The page background, matching the
+  button's black gradient. Elevated panels use Gunmetal (#17181B) with
+  1px #2A2D31 borders.
 - **Verdict colors:** Analysis results use a dedicated semantic trio —
-  emerald (#1E7A5F) for "likely human," ochre (#7A5600) for "mixed signals,"
-  and burnt sienna (#B93815) for "likely AI." Each pairs with a soft tinted
-  surface for badges and highlighted passages. These colors are reserved for
-  verdicts and system feedback; they never decorate marketing content.
+  emerald (#34D399) for "likely human," brass (#E2B93B) for "mixed
+  signals," and signal red (#F87171) for "likely AI." Each pairs with a
+  deep tinted surface for badges and highlighted passages. These colors
+  are reserved for verdicts and system feedback; they never decorate
+  anything else.
 
-All text/background pairings must meet WCAG AA (4.5:1 for body text, 3:1 for
-large text). Spruce Ink on Warm Paper and on white both clear AAA.
+All text/background pairings must meet WCAG AA (4.5:1 for body text, 3:1
+for large text). Chrome Ink on Graphite clears AAA; verdict text is
+checked against its tinted surface.
 
 ## Typography
 
@@ -217,43 +223,45 @@ machine says — scores, percentages, token counts, and highlighted evidence.
 
 ## Layout
 
-The layout follows a **fixed-max-width grid** — content capped at 72rem,
-with long-form reading columns capped at 42rem for comfortable line lengths
-(65–75 characters).
+The layout follows a **single-screen shell**: header, content, and footer
+fill exactly one viewport (100dvh) and the page itself never scrolls.
+Content is capped at 72rem wide; long documents scroll inside their own
+panel, never the page. Reading columns cap at 42rem for comfortable line
+lengths.
 
-Spacing follows an 8px scale with a 4px half-step. Sections breathe:
-vertical rhythm between major page sections is 64px, between related blocks
-24px, and within components 12–16px. The core screen is a two-pane analysis
-view — pasted text on the left, findings on the right — that collapses to a
-stacked layout below 900px, findings first.
+Spacing follows an 8px scale with a 4px half-step, tuned compact:
+16-24px between related blocks, 12-16px inside components. The results
+screen is a two-pane view — the analyzed document on the left, findings
+on the right — each pane scrolling internally.
 
 ## Elevation & Depth
 
-Depth comes from **tonal layering, not shadows**. The Warm Paper background
-sits lowest; white cards define the content layer, separated by 1px borders
-in #DDD8CC. Shadows are used only for transient surfaces (menus, dialogs,
-tooltips) and are soft and conservative: `0 4px 16px rgba(23, 63, 53, 0.08)`.
-Nothing floats without a reason to float.
+Depth comes from **tonal layering, not shadows**. The Graphite background
+sits lowest; Gunmetal panels define the content layer, separated by 1px
+borders in #2A2D31. The liquid-metal button is the only element with real
+shadow depth — that is what makes it the protagonist. Other shadows are
+reserved for transient surfaces (menus, dialogs) and stay conservative:
+`0 4px 16px rgba(0, 0, 0, 0.4)`.
 
 ## Shapes
 
-The shape language is **quietly rounded**: 6px on small elements (badges
-excepted), 10px on buttons and inputs, 16px on cards and panels. Verdict
-badges and chips are fully rounded (pill-shaped) to read as stamps of
-classification. No sharp 0px corners, and no over-rounded 24px+ "bubble" UI.
+The shape language follows the button: **pills for interactive elements**
+(fully rounded buttons, badges, and chips, matching the liquid-metal
+pill), 10px on inputs, 16px on cards and panels. No sharp 0px corners,
+and no over-rounded "bubble" containers.
 
 ## Components
 
-- **Buttons:** Primary buttons are solid Verdigris with white text,
-  darkening to Spruce Ink on hover. Secondary buttons are outlined on
-  transparent, filling with the soft emerald surface on hover. One primary
-  button per view. Button labels are sentence case, never all-caps.
-- **Input fields:** The text-analysis textarea is the hero component — white
-  surface, 1px border, generous 16px padding, and a 3px soft emerald focus
-  ring. Helper text sits below in Sage Slate; error text in Burnt Sienna.
-- **Cards:** White, bordered, 16px radius, 24px padding. Result cards lead
-  with a mono data figure (the score) and a verdict badge, followed by prose
-  explanation in Plex Sans.
+- **Buttons:** The primary action is always the liquid-metal pill (black
+  gradient body, chrome shader rim, ripple feedback) — one per view.
+  Secondary buttons are gunmetal pills with 1px borders, lightening a
+  step on hover. Button labels are sentence case, never all-caps.
+- **Input fields:** The text-analysis textarea is the workbench — gunmetal
+  surface, 1px border, 16px padding, and a soft chrome focus ring. Helper
+  text sits below in Smoke; error text in signal red.
+- **Cards:** Gunmetal, bordered, 16px radius, 20-24px padding. Result
+  cards lead with a mono data figure (the score) and a verdict badge,
+  followed by prose explanation in Plex Sans.
 - **Verdict badges:** Pill-shaped, tinted surface with matching deep text,
   uppercase mono labels ("LIKELY HUMAN", "MIXED SIGNALS", "LIKELY AI").
 - **Evidence highlights:** Flagged passages within analyzed text use the
@@ -264,16 +272,17 @@ classification. No sharp 0px corners, and no over-rounded 24px+ "bubble" UI.
 
 ## Do's and Don'ts
 
-- **Do** reserve Verdigris for interaction and verdict-emerald for results;
-  they may share a hex, but never use verdict colors decoratively.
+- **Do** keep every view inside one viewport; long content scrolls in its
+  panel, never the page.
 - **Do** set every score, percentage, and count in IBM Plex Mono.
-- **Do** keep one reading column for long-form text at ≤42rem.
+- **Do** reserve verdict colors for verdicts; the rest of the interface
+  stays monochrome metal.
 - **Do** pair every verdict color with an icon or label — never communicate
   a verdict by color alone.
-- **Don't** use purple, blue-violet gradients, glow effects, or any
+- **Don't** use purple, blue-violet gradients, neon glows, or any
   "AI aesthetic" clichés.
 - **Don't** use Inter, Roboto, Arial, or generic system font stacks.
-- **Don't** use heavy drop shadows or borderless floating cards.
+- **Don't** use pure #000000 backgrounds; graphite keeps depth.
 - **Don't** animate verdicts with confetti, pulses, or sparkles; results
   appear with a single 150ms fade — this is a lab report, not a slot
   machine.

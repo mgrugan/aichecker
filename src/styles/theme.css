@@ -1,16 +1,16 @@
 @theme {
-  --color-primary: #173f35;
-  --color-secondary: #5c6b66;
-  --color-accent: #1e7a5f;
-  --color-neutral: #f8f6f1;
-  --color-surface: #ffffff;
-  --color-border: #ddd8cc;
-  --color-success: #1e7a5f;
-  --color-warning: #7a5600;
-  --color-danger: #b93815;
-  --color-danger-surface: #fbede7;
-  --color-success-surface: #e8f3ee;
-  --color-warning-surface: #f9f1df;
+  --color-primary: #e9eaec;
+  --color-secondary: #9ba0a8;
+  --color-accent: #d3d6db;
+  --color-neutral: #101114;
+  --color-surface: #17181b;
+  --color-border: #2a2d31;
+  --color-success: #34d399;
+  --color-warning: #e2b93b;
+  --color-danger: #f87171;
+  --color-danger-surface: #321616;
+  --color-success-surface: #0e2a1e;
+  --color-warning-surface: #2c2410;
   --font-display-lg: "Newsreader";
   --font-h1: "Newsreader";
   --font-h2: "Newsreader";
