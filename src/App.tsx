@@ -34,7 +34,7 @@ export default function App() {
       {phase !== "analyzing" && <DriftingShapes />}
       <header className="relative shrink-0 border-b border-border">
         <div className="mx-auto flex h-14 w-full max-w-content-max items-center justify-between px-lg">
-          <p className="font-serif text-h3 font-medium text-primary">AI Checker</p>
+          <p className="font-serif text-h3 font-normal text-primary">AI Checker</p>
           <p className="font-mono text-label-caps uppercase tracking-label-caps text-secondary">
             Writing provenance analysis
           </p>

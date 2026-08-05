@@ -14,7 +14,7 @@ function ProbabilityDial({ p }: { p: number }) {
   const pct = Math.round(p * 100);
   return (
     <div className="flex w-48 shrink-0 flex-col gap-2xs">
-      <p className="font-mono text-data-lg font-medium text-primary">{pct}%</p>
+      <p className="font-mono text-data-lg font-normal text-primary">{pct}%</p>
       <div
         className="h-1.5 w-full overflow-hidden rounded-full bg-border"
         role="meter"
@@ -75,7 +75,7 @@ export function ResultsView({
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-md lg:grid-cols-5">
         <section className="flex min-h-0 flex-col rounded-lg border border-border bg-surface p-md lg:col-span-3">
           <div className="shrink-0">
-            <h2 className="font-sans text-body-lg font-semibold text-primary">
+            <h2 className="font-sans text-body-lg font-medium text-primary">
               Document, sentence by sentence
             </h2>
             <p className="text-caption text-secondary">
@@ -103,14 +103,14 @@ export function ResultsView({
         </section>
 
         <section className="flex min-h-0 flex-col rounded-lg border border-border bg-surface p-md lg:col-span-2">
-          <h2 className="shrink-0 font-sans text-body-lg font-semibold text-primary">
+          <h2 className="shrink-0 font-sans text-body-lg font-medium text-primary">
             What the model measured
           </h2>
           <ul className="mt-sm flex min-h-0 flex-1 flex-col gap-sm overflow-y-auto">
             {result.evidence.map((e) => (
               <li key={e.key} className="flex flex-col gap-px">
                 <div className="flex items-baseline justify-between gap-md">
-                  <p className="text-body-sm font-medium text-primary">{e.label}</p>
+                  <p className="text-body-sm font-normal text-primary">{e.label}</p>
                   <p
                     className={cn(
                       "font-mono text-data-md",

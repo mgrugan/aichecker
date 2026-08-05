@@ -3,8 +3,8 @@
 @import "./styles/theme.css";
 
 @theme {
-  --font-serif: "Newsreader", "Georgia", serif;
-  --font-sans: "IBM Plex Sans", "Helvetica Neue", sans-serif;
+  --font-serif: "Manrope", "Inter", sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", sans-serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
 }
 
@@ -17,13 +17,14 @@
     background-color: var(--color-neutral);
     color: var(--color-primary);
     font-family: var(--font-sans);
+    font-weight: 300;
     -webkit-font-smoothing: antialiased;
   }
 
   h1,
   h2 {
     font-family: var(--font-serif);
-    font-weight: 500;
+    font-weight: 400;
   }
 
   ::selection {

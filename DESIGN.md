@@ -22,62 +22,62 @@ colors:
   warning-surface: "#2C2410"
 typography:
   display-lg:
-    fontFamily: Newsreader
+    fontFamily: Manrope
     fontSize: 56px
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1.05
     letterSpacing: -0.015em
   h1:
-    fontFamily: Newsreader
+    fontFamily: Manrope
     fontSize: 40px
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1.1
     letterSpacing: -0.01em
   h2:
-    fontFamily: Newsreader
+    fontFamily: Manrope
     fontSize: 28px
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1.2
   h3:
-    fontFamily: IBM Plex Sans
+    fontFamily: Inter
     fontSize: 20px
-    fontWeight: 600
+    fontWeight: 400
     lineHeight: 1.3
   body-lg:
-    fontFamily: IBM Plex Sans
+    fontFamily: Inter
     fontSize: 18px
-    fontWeight: 400
+    fontWeight: 300
     lineHeight: 1.65
   body-md:
-    fontFamily: IBM Plex Sans
+    fontFamily: Inter
     fontSize: 16px
-    fontWeight: 400
+    fontWeight: 300
     lineHeight: 1.6
   body-sm:
-    fontFamily: IBM Plex Sans
+    fontFamily: Inter
     fontSize: 14px
-    fontWeight: 400
+    fontWeight: 300
     lineHeight: 1.55
   label-caps:
     fontFamily: IBM Plex Mono
     fontSize: 12px
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1.2
     letterSpacing: 0.08em
   data-lg:
     fontFamily: IBM Plex Mono
     fontSize: 32px
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1.1
   data-md:
     fontFamily: IBM Plex Mono
     fontSize: 15px
-    fontWeight: 450
+    fontWeight: 400
     lineHeight: 1.5
   caption:
-    fontFamily: IBM Plex Sans
+    fontFamily: Inter
     fontSize: 12px
-    fontWeight: 400
+    fontWeight: 300
     lineHeight: 1.4
 spacing:
   base: 16px
@@ -207,21 +207,21 @@ checked against its tinted surface.
 
 ## Typography
 
-Two families split the work: **Newsreader**, a contemporary editorial serif,
-carries the brand voice in display and headline sizes; **IBM Plex Sans**
-handles UI and body copy; **IBM Plex Mono** is reserved for anything the
-machine says — scores, percentages, token counts, and highlighted evidence.
+Two families split the work, both set light: **Manrope** carries the brand
+voice in display and headline sizes; **Inter** handles UI and body copy;
+**IBM Plex Mono** is reserved for anything the machine says — scores,
+percentages, token counts, and highlighted evidence.
 
-- **Display & Headlines:** Newsreader Medium with tight leading and slight
-  negative tracking. Its bookish texture signals human judgment and
-  editorial care.
-- **Body & UI:** IBM Plex Sans Regular at 16px for interface copy and
-  long-form explanations. Never substitute Inter, Roboto, Arial, or system
-  defaults.
-- **Data & Labels:** IBM Plex Mono for detection scores, confidence
-  intervals, section labels, and inline evidence highlights. Labels are
-  uppercase with 0.08em tracking. The serif/mono contrast is the visual
-  shorthand for "human prose vs. machine measurement."
+- **Display & Headlines:** Manrope Regular (400) with tight leading and
+  slight negative tracking. Its rounded geometry stays airy at thin
+  weights against the graphite ground.
+- **Body & UI:** Inter Light (300) at 16px for interface copy and
+  long-form explanations; Regular (400) only where small text needs
+  reinforcement.
+- **Data & Labels:** IBM Plex Mono Regular for detection scores,
+  confidence intervals, section labels, and inline evidence highlights.
+  Labels are uppercase with 0.08em tracking. The geometric/mono contrast
+  is the visual shorthand for "human prose vs. machine measurement."
 
 ## Layout
 
@@ -283,7 +283,8 @@ and no over-rounded "bubble" containers.
   a verdict by color alone.
 - **Don't** use purple, blue-violet gradients, neon glows, or any
   "AI aesthetic" clichés.
-- **Don't** use Inter, Roboto, Arial, or generic system font stacks.
+- **Don't** use weights above 500 anywhere; hierarchy comes from size and
+  color, not boldness.
 - **Don't** use pure #000000 backgrounds; graphite keeps depth.
 - **Don't** animate verdicts with confetti, pulses, or sparkles; results
   appear with a single 150ms fade — this is a lab report, not a slot

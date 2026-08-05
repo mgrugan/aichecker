@@ -17,7 +17,7 @@ export function VerdictBadge({ verdict }: { verdict: Verdict }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-sm py-2xs font-mono text-label-caps font-medium uppercase tracking-label-caps",
+        "inline-flex items-center rounded-full px-sm py-2xs font-mono text-label-caps font-normal uppercase tracking-label-caps",
         STYLES[verdict],
       )}
     >
