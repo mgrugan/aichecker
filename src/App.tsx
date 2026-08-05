@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { ThinkingOrb } from "thinking-orbs";
 import { AnalyzeForm } from "@/components/analyze-form";
+import { DriftingShapes } from "@/components/drifting-shapes";
+import { GeometricLoader } from "@/components/geometric-loader";
 import { ResultsView } from "@/components/results-view";
 import { analyzeFile, analyzeText, type AnalysisResult } from "@/lib/api";
 
 type Phase = "idle" | "analyzing" | "done";
+
+const MIN_LOADING_MS = 3000;
 
 export default function App() {
   const [phase, setPhase] = useState<Phase>("idle");
@@ -14,19 +17,22 @@ export default function App() {
   const run = async (job: Promise<AnalysisResult>) => {
     setPhase("analyzing");
     setError(null);
+    const minDelay = new Promise((r) => setTimeout(r, MIN_LOADING_MS));
     try {
-      const res = await job;
+      const [res] = await Promise.all([job, minDelay]);
       setResult(res);
       setPhase("done");
     } catch (e) {
+      await minDelay;
       setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
       setPhase("idle");
     }
   };
 
   return (
-    <div className="flex h-dvh flex-col overflow-hidden">
-      <header className="shrink-0 border-b border-border">
+    <div className="relative flex h-dvh flex-col overflow-hidden">
+      {phase !== "analyzing" && <DriftingShapes />}
+      <header className="relative shrink-0 border-b border-border">
         <div className="mx-auto flex h-14 w-full max-w-content-max items-center justify-between px-lg">
           <p className="font-serif text-h3 font-medium text-primary">AI Checker</p>
           <p className="font-mono text-label-caps uppercase tracking-label-caps text-secondary">
@@ -35,7 +41,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-content-max flex-1 flex-col overflow-hidden px-lg py-md">
+      <main className="relative mx-auto flex w-full max-w-content-max flex-1 flex-col overflow-hidden px-lg py-md">
         {phase === "idle" && (
           <div className="flex h-full min-h-0 flex-col gap-md">
             <div className="shrink-0 pt-xs">
@@ -56,23 +62,7 @@ export default function App() {
           </div>
         )}
 
-        {phase === "analyzing" && (
-          <div
-            role="status"
-            aria-live="polite"
-            className="flex h-full flex-col items-center justify-center gap-lg"
-          >
-            <div aria-hidden="true">
-              <ThinkingOrb state="searching" size={64} />
-            </div>
-            <div className="flex flex-col items-center gap-2xs text-center">
-              <p className="text-body-lg text-primary">Reading the document…</p>
-              <p className="text-body-sm text-secondary">
-                Measuring sentence rhythm, vocabulary, and phrase likelihood.
-              </p>
-            </div>
-          </div>
-        )}
+        {phase === "analyzing" && <GeometricLoader />}
 
         {phase === "done" && result && (
           <ResultsView
@@ -85,7 +75,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="shrink-0 border-t border-border">
+      <footer className="relative shrink-0 border-t border-border">
         <div className="mx-auto flex h-10 w-full max-w-content-max items-center justify-between gap-md px-lg">
           <p className="truncate text-caption text-secondary">
             Decision-tree ensemble over 30 stylometric measurements and n-gram

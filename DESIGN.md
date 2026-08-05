@@ -11,9 +11,9 @@ colors:
   primary: "#E9EAEC"
   secondary: "#9BA0A8"
   accent: "#D3D6DB"
-  neutral: "#101114"
-  surface: "#17181B"
-  border: "#2A2D31"
+  neutral: "#16181D"
+  surface: "#1D1F24"
+  border: "#33363C"
   success: "#34D399"
   warning: "#E2B93B"
   danger: "#F87171"
@@ -189,9 +189,11 @@ button, with a small set of verdict colors that carry semantic meaning.
 - **Accent — Polished Chrome (#D3D6DB):** Reserved for focus rings, links,
   and active states. Interaction itself belongs to the liquid-metal
   button; the accent stays quiet.
-- **Neutral — Graphite (#101114):** The page background, matching the
-  button's black gradient. Elevated panels use Gunmetal (#17181B) with
-  1px #2A2D31 borders.
+- **Neutral — Graphite (#16181D):** The page background, a step lighter
+  than the button's black gradient so the button and the wireframe motifs
+  read against it. Elevated panels use Gunmetal (#1D1F24) with 1px
+  #33363C borders; the input workbench is frosted glass over the drifting
+  wireframe layer.
 - **Verdict colors:** Analysis results use a dedicated semantic trio —
   emerald (#34D399) for "likely human," brass (#E2B93B) for "mixed
   signals," and signal red (#F87171) for "likely AI." Each pairs with a

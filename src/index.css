@@ -31,3 +31,12 @@
     color: var(--color-neutral);
   }
 }
+
+@keyframes drift {
+  from {
+    transform: translate3d(-45vw, 0, 0);
+  }
+  to {
+    transform: translate3d(105vw, 0, 0);
+  }
+}

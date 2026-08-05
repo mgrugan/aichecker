@@ -29,8 +29,8 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
     <div className="flex min-h-0 flex-1 flex-col gap-sm">
       <div
         className={cn(
-          "flex min-h-0 flex-1 flex-col rounded-lg border bg-surface transition-colors duration-150 focus-within:border-accent/50 focus-within:ring-[3px] focus-within:ring-accent/10",
-          dragging ? "border-accent/70 bg-border/30" : "border-border",
+          "flex min-h-0 flex-1 flex-col rounded-lg border bg-white/[0.045] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl transition-colors duration-150 focus-within:border-accent/50 focus-within:ring-[3px] focus-within:ring-accent/10",
+          dragging ? "border-accent/70 bg-white/[0.09]" : "border-white/10",
         )}
         onDragOver={(e) => {
           e.preventDefault();
@@ -49,7 +49,7 @@ export function AnalyzeForm({ onAnalyzeText, onAnalyzeFile, error }: AnalyzeForm
           placeholder="Paste the text you want to examine, at least 40 words…"
           className="min-h-0 w-full flex-1 resize-none rounded-lg bg-transparent p-md text-body-md leading-relaxed text-primary placeholder:text-secondary focus:outline-none"
         />
-        <div className="flex shrink-0 flex-wrap items-center justify-between gap-sm border-t border-border px-md py-xs">
+        <div className="flex shrink-0 flex-wrap items-center justify-between gap-sm border-t border-white/10 px-md py-xs">
           <p className="font-mono text-data-md text-secondary">
             {words.toLocaleString()} {words === 1 ? "word" : "words"}
             {words > 0 && !ready && (
